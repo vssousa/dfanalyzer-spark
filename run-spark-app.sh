@@ -30,7 +30,6 @@ export SPARK_MASTER=`python bin/MasterURLDiscovery.py spark-initialization.log`
 echo "-------------------------------------------------"
 echo "Submitting dataflow specification"
 $SIMULATION_DIR/bin/send-dataflow-spec.sh
-sleep 3
 echo "-------------------------------------------------"
 echo "Submitting a Spark application" 
 $SPARK_HOME/bin/spark-submit \

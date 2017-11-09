@@ -37,3 +37,5 @@ curl -X POST http://localhost:22000/pde/dataflow \
             dataset(oaggregation, , )
             extractor(oaggregation,oaggregation,EXTRACTION,PROGRAM,{clothid;quantity},{numeric;numeric})
             transformation(aggregation,{oprediction},{oaggregation},{ClothingApp::aggregation()})'
+sleep 3
+clear
