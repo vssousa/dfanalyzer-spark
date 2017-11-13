@@ -1,26 +1,25 @@
 # Spark application using DfAnalyzer tool
-***
 
 ## Overview
 
-This repository presents the configuration and execution of a Spark application using DfAnalyzer tool for enabling monitoring, debugging, steering, and analysis of the dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found [here](https://hpcdb.github.io/armful/dfanalyzer.html).
+This repository presents the configuration and execution of a Spark application using DfAnalyzer tool, which aims at monitoring, debugging, steering, and analyzing dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found [here](https://hpcdb.github.io/armful/dfanalyzer.html).
 
 ## Software Requirements
 
-This demonstration requires the installation of three softwares to run DfAnalyzer tool with our Spark application. Users can also install the FastBit tool in order to apply a bitmap indexing technique in scientific data produced by our application and stored in raw data files.
+This demonstration requires the installation of three softwares to run DfAnalyzer tool with our Spark application. Users can also install the FastBit tool if they want to apply a bitmap indexing technique in scientific data produced by our application and stored in raw data files.
 
 1. [Java SE Development Kit (JDK)](http://www.oracle.com/technetwork/java/javase/downloads/index.html), which can be installed following the steps provided by Oracle Corporation;
 2. [Apache Spark](http://spark.apache.org/), a large-scale data processing engine.
-3. [MonetDB](https://www.monetdb.org/Home), column-oriented database management system (DBMS). It can be installed and configured following the [user guide](https://www.monetdb.org/Documentation/UserGuide) provided on MonetDB's website.
+3. [MonetDB](https://www.monetdb.org/Home), a column-oriented database management system (DBMS). It can be installed and configured following the [user guide](https://www.monetdb.org/Documentation/UserGuide) provided on MonetDB's website.
 4. [FastBit](https://sdm.lbl.gov/fastbit/), a bitmap-based indexing tool. **(optional)**
 
 ## About this repository
 
-In this repository, we provide a compressed file of our MonetDB database (to DfAnalyzer) and configuration files of Spark already defined for a local execution of an application. Therefore, users only need to configure some environment variables (as discussed in the next section) and run two scripts, `start-dfa.sh` and `run-spark-app.sh`. Moreover, we assume that experiments are being executed in an Unix-based operating system.
+In this repository, we provide a compressed file of our MonetDB database to DfAnalyzer tool and configuration files of Spark. These configuration files are already defined for a local execution of an application using Apache Spark. Therefore, users only need to configure some environment variables (as discussed in the next section). Then, they have to run two scripts, `start-dfa.sh` and `run-spark-app.sh`. Moreover, we assume that experiments are being executed in an Unix-based operating system.
 
 ## Environment configuration
 
-After the software installation step, users have to define some environment variables and others in the `PATH` variable of the operating system.
+After the installation step, users have to define some environment variables and add some paths in the `PATH` variable of the operating system.
 
 To configure Spark environment variables, users have to specify the path to Spark installation directory (variable `SPARK_HOME`), the directory *sbin* (variable `SPARK_SBIN`), the configuration directory (variable `SPARK_CONF_DIR`), and they have to add directory *bin* to the environment variable `PATH`, as follows:
 
@@ -156,11 +155,9 @@ Submiting a Spark application
 ## Web application 
 ### DfViewer component
 
-Besides the execution of a Spark application using DfAnalyzer, our RESTful application also provides a dataflow visualization based on a dataset perspective view. So, when users access DfAnalyzer in a web browser (*e.g.*, using the URL `http://localhost:22000`), they can visualize dataflow specifications already stored in DfAnalyzer's database, as shown in the following figure.
+Besides the execution of a Spark application using DfAnalyzer, our RESTful application also provides a dataflow visualization based on a dataset perspective view. So, when users access DfAnalyzer in a web browser (*e.g.*, using the URL `http://localhost:22000`), they can visualize dataflow specifications already stored in DfAnalyzer's database, as shown in the following figure. More specifically, they can investigate the schema of each dataset (set of predefined attributes).
 
 ![Dataset perspective view in our web application](img/dfview.png)
-
-***
 
 ### DfAnalyzer RESTful documentation
 
@@ -172,24 +169,30 @@ More details about Provenance Data Extractor (PDE) are shown when the ribbon wit
 
 ![PDE restful services](img/dfa-docs-pde.png)
 
+Users can submit HTTP requests with the POST method with this URL, including these methods to each request body, to store provenance and scientific data from scientific applications.
+
 #### Query Interface documentation
 
 More details about Query Interface (QI) are shown when the ribbon with the same name is expanded, as follows:
 
 ![QI restful services](img/dfa-docs-qi.png)
 
+Users can submit HTTP requests with the POST method with this URL, including these methods to each request body, to query dataflow path generated by scientific applications.
+
 ## Dataflow analysis using Query Interface
 
 To perform dataflow analysis, an HTTP request has to be submitted to the RESTful API of DfAnalyzer considering the aforementioned documentation of QI. 
 
-For instance, according to the dataflow representation (in the dataset perspective view) our Spark application, users might like to investigate the data element flow from the input dataset *icloth_item* to the output dataset *oaggregation*, when the probability of a customer to buy a cloth item is less than 0.50. More specifically, they want to know which cloth items are in this situation and how many of them will be sold.
+For instance, according to the dataflow representation (in the dataset perspective view) of our Spark application, users may investigate the data element flow from the input dataset *icloth_item* to the output dataset *oaggregation*, when the probability of a customer to buy a cloth item is less than 0.50. More specifically, they want to know which cloth items are in this situation and how many of them will be sold. The following figure presents the dataflow fragment to be analyzed by this query.
 
 ![Dataflow representation of our Spark application](img/dfview-zoom.png)
 
 Based on this dataflow analysis, an HTTP request has to be submitted to our RESTful API with the following URL and message (*i.e.*, HTTP body).
 
 URL:
-`http://localhost:22000/query_interface/{dataflow_tag}/{dataflow_id}` (*e.g.*, `http://localhost:22000/query_interface/clothing/2` 
+`http://localhost:22000/query_interface/{dataflow_tag}/{dataflow_id}` 
+
+(*e.g.*, `http://localhost:22000/query_interface/clothing/2`)
 
 Message:
 
@@ -198,11 +201,11 @@ mapping(logical)
 source(icloth_item)
 target(oaggregation)
 projection(icloth_item.clothid;icloth_item.description;
-			oprediction.probability;oaggregation.quantity)
+            oprediction.probability;oaggregation.quantity)
 selection(oprediction.probability < 0.50)
 ```
 
-As a result, our RESTful API returns a CSV-format file with the following content:
+As a result, our RESTful API returns a CSV-format file with the following content, which represents the query results:
 
 ```
 "clothid";"description";"probability";"quantity"
@@ -218,16 +221,16 @@ As a result, our RESTful API returns a CSV-format file with the following conten
 
 ## Source codes
 
-Besides an application execution, we provide the instrumented source code of our Spark application using DfAnalyzer tool in the directory *Clothing-Spark*. Therefore, users can investigate this source code to understand our instrumentation strategy using DfAnalyzer tool. 
+Besides the application execution, we provide the instrumented source codes of our Spark application using DfAnalyzer tool in the directory *Clothing-Spark*. Thus, users can investigate these source codes to understand our instrumentation strategy using DfAnalyzer tool. 
 
 We also encourage users to develop their own application using DfAnalyzer or modify our Spark application. In the latter case, it is necessary to install [Apache Maven](https://maven.apache.org/) if users would like to build their modified application.
 
-To build the project with Spark application, it is necessary to run the following command line:
+To build the project with our Spark application, it is necessary to run the following command line:
 
 ```
+cd $SPARK_APP_DIRECTORY
 mvn clean package
 ```
-
 
 ## Acknowledgements
 
