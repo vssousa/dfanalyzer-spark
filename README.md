@@ -13,6 +13,8 @@ This demonstration requires the installation of three softwares to run DfAnalyze
 3. [MonetDB](https://www.monetdb.org/Home), a column-oriented database management system (DBMS). It can be installed and configured following the [user guide](https://www.monetdb.org/Documentation/UserGuide) provided on MonetDB's website.
 4. [FastBit](https://sdm.lbl.gov/fastbit/), a bitmap-based indexing tool. **(optional)**
 
+**Important note:** if the operating system does not have `curl` installed, please install it, since the script `run-spark-all.sh` will use it. (*e.g.*, `sudo apt install curl`)
+
 ## About this repository
 
 In this repository, we provide a compressed file of our MonetDB database to DfAnalyzer tool and configuration files of Spark. These configuration files are already defined for a local execution of an application using Apache Spark. Therefore, users only need to configure some environment variables (as discussed in the next section). Then, they have to run two scripts, `start-dfa.sh` and `run-spark-app.sh`. Moreover, we assume that experiments are being executed in an Unix-based operating system.
