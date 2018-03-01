@@ -17,7 +17,13 @@ This demonstration requires the installation of three softwares to run DfAnalyze
 
 ## About this repository
 
-In this repository, we provide a compressed file of our MonetDB database to DfAnalyzer tool and configuration files of Spark. These configuration files are already defined for a local execution of an application using Apache Spark. Therefore, users only need to configure some environment variables (as discussed in the next section). Then, they have to run two scripts, `start-dfa.sh` and `run-spark-app.sh`. Moreover, we assume that experiments are being executed in an Unix-based operating system.
+In this repository, we provide a compressed file of our MonetDB database to DfAnalyzer tool and configuration files of Spark. These configuration files are already defined for a local execution of an application using Apache Spark. Therefore, users only need to configure some local environment variables (as discussed in the next section). Then, they have to run two scripts, `start-dfa.sh` and `run-spark-app.sh`. Moreover, we assume that experiments are being executed in an Unix-based operating system.
+
+To do not have the efforts of configuring a local environment, we also provide a [Docker](https://www.docker.com/) image with every software requirements already installed and configured (with the required environment variables). This Docker image is avaiable for download in https://hub.docker.com/r/vitorss/dfanalyzer-vldb-demo (or click on the following icon).
+
+<a href="https://hub.docker.com/r/vitorss/dfanalyzer-vldb-demo">
+    <img src="./img/docker.svg" width="120">
+</a>
 
 ## Environment configuration
 
