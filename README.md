@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository presents the configuration and execution of a Spark application using DfAnalyzer tool, which aims at monitoring, debugging, steering, and analyzing dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found ![here](https://hpcdb.github.io/armful/dfanalyzer.html).
+This repository presents the configuration and execution of a Spark application using DfAnalyzer tool, which aims at monitoring, debugging, steering, and analyzing dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found [here](https://hpcdb.github.io/armful/dfanalyzer.html).
 
 ## Software Requirements
 
