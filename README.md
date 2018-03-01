@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository presents the configuration and execution of a Spark application using DfAnalyzer tool, which aims at monitoring, debugging, steering, and analyzing dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found [here](https://hpcdb.github.io/armful/dfanalyzer.html).
+This repository presents the configuration and execution of a Spark application using DfAnalyzer tool, which aims at monitoring, debugging, steering, and analyzing dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found ![here](https://hpcdb.github.io/armful/dfanalyzer.html).
 
 ## Software Requirements
 
@@ -21,7 +21,7 @@ In this repository, we provide a compressed file of our MonetDB database to DfAn
 
 To do not have the efforts of configuring a local environment, we also provide a [Docker](https://www.docker.com/) image with every software requirements already installed and configured (with the required environment variables). This Docker image is avaiable for download in https://hub.docker.com/r/vitorss/dfanalyzer-vldb-demo (or click on the following icon).
 
-<a href="https://hub.docker.com/r/vitorss/dfanalyzer-vldb-demo">
+<a href="https://hub.docker.com/r/vitorss/dfanalyzer-vldb-demo" target="_blank">
     <img src="./img/docker.svg" width="120">
 </a>
 
