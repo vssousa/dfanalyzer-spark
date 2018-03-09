@@ -4,6 +4,29 @@
 
 This repository presents the configuration and execution of a Spark application using DfAnalyzer tool, which aims at monitoring, debugging, steering, and analyzing dataflow path at runtime. More specifically, DfAnalyzer provides file and data element flow analyses based on a dataflow abstraction. More information about the components of DfAnalyzer can be found [here](https://hpcdb.github.io/armful/dfanalyzer.html).
 
+## Demonstrations steps using SalesForecasts application with DfAnalyzer
+
+Inventory management in a large retail company involves different employee skills to support retail decision-makers. In this demo, DfAnalyzer is being used to support a simple interactive decision system, named SalesForecasts, in presenting relevant information to the final decision maker. SalesForecasts predicts the sales of each clothing item based on an input dataset.
+
+The application SalesForecasts has been modeled and implemented by John Doe, a decision supporting system (DSS) specialist. The DSS specialist in this retail company is responsible to gather and process information on sales and inventory. Before presenting the resulting information to the decision maker, the DSS specialist needs to define the relevant information to be gathered and try different configurations of the DSS by interactively fine tuning its parameters. 
+
+In this demo, John is using DfAnalyzer to reach a final configuration of SalesForecasts that produces relevant results in due time. Since this demonstration corresponds to a simple example of predictive data analysis, John acts both as the Chief Information Office (CIO) (the user that analyzes data resulting from SalesForecasts) and the DSS specialist (the user that steers the execution of SalesForecast so that it delivers enough and adequate data for the decision making). 
+
+John has modeled his DSS using Spark to accelerate the company’s inventory management workflow execution. The workflow generates intermediate data that are relevant to complement the final reports. He uses DfAnalyzer to obtain the resulting data of the DSS workflow, as a dataflow, to generate provenance data and to support runtime data analysis so that he can decide for a final configuration of the workflow execution. To reach a final configuration, with a timely and reasonable amount of information, John has to submit queries that show a global view of data generation to decide on fine tuning the filter for setting the probability of top selling items, the regions that will be shown, etc. 
+
+Without the help of DfAnalyzer, during the execution, John has no support to monitor the workflow intermediate results and has to wait until the end of the execution, in this very small case, two hours, to decide for a fine tuning. For example, a parameter may be set to 0.65 to filter items with probabilities higher than 80%. Only at the end of the execution, John realizes that, for this input dataset, 65% is not adequate. A new value is set and execution starts again in this trial process. In addition, after the execution, John has no provenance of the results, and, because data is spread in disconnected files, he has difficulties in identifying the related data regions that are part of the inventory items of interest.
+With DfAnalyzer, John is able to check how much and which data are being filtered to be considered clothing items with a high probability of being sold or that can be stored in the inventory. These intermediate results help the fine tuning of a DSS as soon as possible. 
+
+The following figure presents the DfAnalyzer steps for monitoring this Spark SalesForecasts application and performing runtime dataflow analysis of specific quantities of interest (i.e., scientific data):
+1.	Expliciting the dataflow behind the execution of SalesForecasts into a dataflow modeling. Identification of SalesForecasts quantities of interest to be traced, e.g., monitoring of clothing items and their description with the quantity of sales for such item and the calculated probability of selling it according to a specific buying pattern;
+2.	Dataflow representation into DfAnalyzer provenance schema, e.g., John interacts with database specialists to help on the conceptual modeling;
+3.	John inserts DfAnalyzer calls on his source code of SalesForecasts;
+4.	John submits the execution of SalesForecasts with DfAnalyzer;
+5.	John submits monitoring queries to DfAnalyzer’s database; and
+John fine tunes the execution. The resulting database also represents a global view that can be used to find relevant raw data files.
+
+![Demonstration steps using SalesForecasts application with DfAnalyzer](img/user-app-cycle.png)
+
 ## Software Requirements
 
 This demonstration requires the installation of three softwares to run DfAnalyzer tool with our Spark application. Users can also install the FastBit tool if they want to apply a bitmap indexing technique in scientific data produced by our application and stored in raw data files.
